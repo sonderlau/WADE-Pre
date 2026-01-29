@@ -6,7 +6,7 @@ WADEPre: **WA**velet-based **D**ecomposition Model for **E**xtreme **Pre**cipita
 
 
 
-*Authors*: Baitian Liu [1], Haiping Zhang [1], Huiling Yuan [2, 3], Ying Li [4], Feng Chen [4], Hao Wu [1, *]
+*Authors*: Baitian Liu [1], Haiping Zhang [1], Huiling Yuan [2, 3], Dongjing Wang [1], Ying Li [4], Feng Chen [4], Hao Wu [1, *]
 
 
 
@@ -19,7 +19,7 @@ WADEPre: **WA**velet-based **D**ecomposition Model for **E**xtreme **Pre**cipita
 
 
 
-The paper has been submitted to KDD 2026 and is currently under review.
+**The paper has been submitted to KDD 2026 and is currently under review.**
 
 
 
@@ -40,9 +40,9 @@ This repository contains the training and inference code for running WADE-Pre to
 
 ## Dataset
 
-SEVIR:  We use Vertically Integrated Liquid (VIL) mosaics in SEVIR for benchmarking precipitation nowcasting, predicting the future VIL up to 6\*10 minutes given 6\*10 minutes of context VIL, and resizing the spatial resolution to 128. The resolution is thus `6×128×128 → 6×128×128`.
+- *SEVIR*:  We use Vertically Integrated Liquid (VIL) mosaics in SEVIR for benchmarking precipitation nowcasting, predicting the future VIL up to 6\*10 minutes given 6\*10 minutes of context VIL, and resizing the spatial resolution to 128. The resolution is thus `6×128×128 → 6×128×128`.
 
-Shanghai Radar dataset: The raw data spans a 460 × 460 grid covering a physical region of `460km × 398km`, with reflectivity values ranging from 0 to 70 dBZ. We resize the spatial resolution to 128. The resolution is thus `6×128×128 → 6×128×128`.
+- *Shanghai Radar*: The raw data spans a 460 × 460 grid covering a physical region of `460km × 398km`, with reflectivity values ranging from 0 to 70 dBZ. We resize the spatial resolution to 128. The resolution is thus `6×128×128 → 6×128×128`.
 
 
 We thank AWS for providing online download service, for more details please refer to [AWS - Storm EVent ImageRy (SEVIR)](https://registry.opendata.aws/sevir/)
@@ -83,14 +83,14 @@ python train.py
 
 When you start training, these folders may offer you useful information:
 
-- `logs` All training metrics, including hyperparameters, are recorded in this file.
-- `checkpoints` Model weight file. 
+- `logs` : All training metrics, including hyperparameters, are recorded in this file.
+- `checkpoints` : Model weight file. 
 
 
 
 ## Reproduction
 
-The model's weights **will be released upon acceptance**.
+The model’s weights **will be released upon acceptance**.
 
 
 
@@ -112,6 +112,8 @@ Third-party libraries and tools:
 
 We refer to implementations of the following repositories and sincerely thank their contributors for their great work for the community.
 
+- [Dilated ResNet](https://github.com/fyu/drn)
+- [FPN](https://github.com/kuangliu/pytorch-fpn)
 - [ConvLSTM](https://github.com/Hzzone/Precipitation-Nowcasting/blob/master/nowcasting/models/convLSTM.py)
 - [MAU](https://github.com/ZhengChang467/MAU)
 - [EarthFarseer](https://github.com/Alexander-wu/EarthFarseer)
