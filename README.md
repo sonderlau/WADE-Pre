@@ -1,8 +1,19 @@
-# WADEPre Official Implementation
+<div align="center">
+
+
+<a href="https://pytorch.org/"><img src="https://img.shields.io/badge/PyTorch-2.1.0-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white&style=plastic" alt="PyTorch"></a><a href="https://lightning.ai/docs/pytorch/stable/"><img src="https://img.shields.io/badge/PyTorch_Lightning-2.4.0-792EE5?style=for-the-badge&logo=pytorchlightning&logoColor=white&labelColor=181717&style=plastic" alt="PyTorch Lightning"></a><a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-00599C?style=for-the-badge&logo=open-source-initiative&logoColor=white&labelColor=181717&style=plastic" alt="License"></a>
+
+<a href="http://kdd.org/kdd2026/"><img src="https://img.shields.io/badge/KDD_2026-Under_Review-b38808?style=for-the-badge&logo=acm&logoColor=white&labelColor=181717&style=plastic" alt="KDD 2026"></a> <a href="https://arxiv.org/abs/2601.xxxxx"><img src="https://img.shields.io/badge/Arxiv-TBD-B31B1B?style=for-the-badge&logo=arxiv&logoColor=white&labelColor=181717&style=plastic" alt="Arxiv"></a>
 
 
 
-WADEPre: **WA**velet-based **D**ecomposition Model for **E**xtreme **Pre**cipitation Nowcasting with Multi-Scale Learning
+</div>
+
+
+
+> Official Implementation of "**WADEPre**: **WA**velet-based **D**ecomposition Model for **E**xtreme **Pre**cipitation Nowcasting with Multi-Scale Learning"
+
+
 
 
 
@@ -11,91 +22,132 @@ WADEPre: **WA**velet-based **D**ecomposition Model for **E**xtreme **Pre**cipita
 
 
 > 1. Department of Computer Science and Technology, Hangzhou Dianzi University, Hangzhou, Zhejiang  Province, China
->2. State Key Laboratory of Severe Weather Meteorological Science and Technology, Nanjing University, Nanjing, China
+> 2. State Key Laboratory of Severe Weather Meteorological Science and Technology, Nanjing University, Nanjing, China
 > 3. Key Laboratory of Mesoscale Severe Weather, Ministry of Education, and School of Atmospheric Sciences, Nanjing University, Nanjing, China
->4. Zhejiang Institute of Meteorological Sciences, Hangzhou, Zhejiang Province, China
+> 4. Zhejiang Institute of Meteorological Sciences, Hangzhou, Zhejiang Province, China
 > 
 >*Corresponding author: Hao Wu
 
 
 
-**The paper has been submitted to KDD 2026 and is currently under review.**
+## 📢 News
+
+- (🔥 New) [2026-02-02] Paper submitted to KDD 2026 and is currently under review.
+
+
+
+<details>
+
+<summary>History news</summary>
+
+- [2026-01-23] Utility updated.
+- [2025-11-17] Repository initiated.
+
+</details>
+
+
+
+---
+
+
+
+## ⚡ Highlights
+-  **Beyond Pixel-wise & Fourier**: Overcomes the *blurring* of MSE-based models and the *spatial leakage* of Fourier models via Discrete Wavelet Transform (DWT).
+-  **Stable Optimization**: Implements a *dynamic weight annealing strategy* to prioritize structural learning before texture refinement, ensuring robust convergence for chaotic weather systems.
+- **High-Fidelity Nowcasting**: Establishes new SOTA benchmarks on SEVIR and Shanghai Radar, delivering sharper images and superior CSI scores at extreme thresholds.
+
+
+
+---
 
 
 
 
-> Last updated: January 28. 2026
+
+## 🏆  Results
+
+We achieve state-of-the-art performance on the SEVIR and Shanghai Radar datasets.
 
 
 
-## Introduction
-
-**WADEPre** is a wavelet-based deep learning framework designed to address <u>smoothing effects</u> in extreme precipitation nowcasting. By explicitly decomposing radar imagery into stable large-scale advection (approximation coefficients) and volatile local intensity (detail coefficients), the model overcomes the regression-to-the-mean dilemma inherent in standard pixel-wise optimization. Powered by a `multi-task curriculum learning strategy`, WADEPre achieves state-of-the-art performance on the SEVIR and Shanghai Radar benchmarks, significantly improving forecast accuracy and structural fidelity for high-impact weather events compared with Fourier-based and deterministic baselines.
+TBD.
 
 
 
-This repository contains the training and inference code for running WADE-Pre to make predictions (6 --> 6) on two datasets.
+---
 
 
 
-## Dataset
-
-- *SEVIR*:  We use Vertically Integrated Liquid (VIL) mosaics in SEVIR for benchmarking precipitation nowcasting, predicting the future VIL up to 6\*10 minutes given 6\*10 minutes of context VIL, and resizing the spatial resolution to 128. The resolution is thus `6×128×128 → 6×128×128`.
-
-- *Shanghai Radar*: The raw data spans a 460 × 460 grid covering a physical region of `460km × 398km`, with reflectivity values ranging from 0 to 70 dBZ. We resize the spatial resolution to 128. The resolution is thus `6×128×128 → 6×128×128`.
-
-
-We thank AWS for providing online download service, for more details please refer to [AWS - Storm EVent ImageRy (SEVIR)](https://registry.opendata.aws/sevir/)
-
-The Shanghai Radar dataset can be downloaded from [here](https://zenodo.org/records/7251972).
-
-
-## Code
-
-
-
-### Environment
+## 🛠️ Installation
 
 ```bash
+# 1. Clone the repository
+git clone https://github.com/sonderlau/WADEPre
+
+cd WADEPre
+
+# 2. Create environment
 conda env create -f env.yaml
 conda activate wadepre
 ```
 
 
 
-### Evaluation
-
-Open the `eval.py` file, and replace the weight file path with your path. Then run the command:
-
-```bash
-python eval.py 
-```
+---
 
 
+
+## 📂 Data Preparation
+
+### SEVIR Dataset
+
+We use Vertically Integrated Liquid (VIL) mosaics in SEVIR for benchmarking precipitation nowcasting, predicting the future VIL up to 6\*10 minutes given 6\*10 minutes of context VIL, and resizing the spatial resolution to 128. The resolution is thus `6×128×128 → 6×128×128`.
+
+We thank AWS for providing an online download service. Please download the SEVIR dataset from [AWS Open Data](https://registry.opendata.aws/sevir/). 
+
+### Shanghai Radar Dataset
+
+*Shanghai Radar*: The raw data spans a 460 × 460 grid covering a physical region of `460km × 398km`, with reflectivity values ranging from 0 to 70 dBZ. We resize the spatial resolution to 128. The resolution is thus `6×128×128 → 6×128×128`.
+
+The Shanghai Radar dataset can be downloaded from the official [Zenodo repo](https://zenodo.org/records/7251972).
+
+
+
+---
+
+
+
+## 🚀 Usage
 
 ### Training
 
-```python
+To train WADEPre on GPU(s):
+
+```bash
+# Change hyperparameters in the train.py
 python train.py
 ```
 
 
 
-When you start training, these folders may offer you useful information:
+### Evaluation
 
-- `logs` : All training metrics, including hyperparameters, are recorded in this file.
-- `checkpoints` : Model weight file. 
+To evaluate the pre-trained model:
 
-
-
-## Reproduction
-
-The model’s weights **will be released upon acceptance**.
+```bash
+# Change settings in the eval.py
+python eval.py
+```
 
 
 
+---
 
-## Credit
+
+
+## 🤝 Acknowledgement <a href="https://www.nvidia.com/"><img src="https://img.shields.io/badge/Accelerated_by-NVIDIA_H100-76B900?style=for-the-badge&logo=nvidia&logoColor=white&labelColor=181717&style=plastic" alt="Hardware"></a>
+
+
 
 Our implementation is heavily inspired by the following excellent works. We extend our thanks to the original authors.
 
