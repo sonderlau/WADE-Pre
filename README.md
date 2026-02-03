@@ -5,7 +5,7 @@
 
 <a href="https://pytorch.org/"><img src="https://img.shields.io/badge/PyTorch-2.1.0-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white&style=plastic" alt="PyTorch"></a><a href="https://lightning.ai/docs/pytorch/stable/"><img src="https://img.shields.io/badge/PyTorch_Lightning-2.4.0-792EE5?style=for-the-badge&logo=pytorchlightning&logoColor=white&labelColor=181717&style=plastic" alt="PyTorch Lightning"></a><a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-00599C?style=for-the-badge&logo=open-source-initiative&logoColor=white&labelColor=181717&style=plastic" alt="License"></a>
 
-<a href="http://kdd.org/kdd2026/"><img src="https://img.shields.io/badge/KDD_2026-Under_Review-b38808?style=for-the-badge&logo=acm&logoColor=white&labelColor=181717&style=plastic" alt="KDD 2026"></a> <a href="https://arxiv.org/abs/2601.xxxxx"><img src="https://img.shields.io/badge/Arxiv-TBD-B31B1B?style=for-the-badge&logo=arxiv&logoColor=white&labelColor=181717&style=plastic" alt="Arxiv"></a>
+<a href="https://kdd2026.kdd.org/ai4sciences-track-call-for-papers//"><img src="https://img.shields.io/badge/KDD_2026-Under_Review-b38808?style=for-the-badge&logo=acm&logoColor=white&labelColor=181717&style=plastic" alt="KDD 2026"></a> <a href="https://arxiv.org/abs/2602.02096"><img src="https://img.shields.io/badge/Arxiv-2602.02096-B31B1B?style=for-the-badge&logo=arxiv&logoColor=white&labelColor=181717&style=plastic" alt="Arxiv"></a>
 
 
 
