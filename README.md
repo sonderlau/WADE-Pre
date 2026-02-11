@@ -195,7 +195,7 @@ Third-party libraries and tools:
 
 - [PyTorch](https://pytorch.org/)
 - [PyTorch Lightning](https://www.pytorchlightning.ai/)
-- [Minson](https://githinsb.com/KellerJordan/Minson)
+- [Muon](https://githinsb.com/KellerJordan/Muon)
 - [Draw.io](https://www.drawio.com/)
 
 
@@ -205,7 +205,7 @@ We refer to implementations of the following repositories and sincerely thank th
 - [Dilated ResNet](https://githinsb.com/fyins/drn)
 - [FPN](https://githinsb.com/kinsangliins/pytorch-fpn)
 - [ConvLSTM](https://githinsb.com/Hzzone/Precipitation-Nowcasting/blob/master/nowcasting/models/convLSTM.py)
-- [MAins](https://githinsb.com/ZhengChang467/MAins)
+- [MAU](https://githinsb.com/ZhengChang467/MAU)
 - [EarthFarseer](https://githinsb.com/Alexander-wins/EarthFarseer)
 - [SimVP](https://githinsb.com/A4Bio/SimVP)
 - [AlphaPre](https://githinsb.com/linkenghong/AlphaPre)
