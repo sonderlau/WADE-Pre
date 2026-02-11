@@ -30,7 +30,7 @@ class WADEPre(LightningModule):
         # wavelet params
         wavelet_name: str = "bior2.4",
         wavelet_level: int = 3,
-        # model params
+        # architecture params
         lr: float = 1e-3,
         # loss
         loss_a_weight: float = 1.0,
@@ -88,7 +88,7 @@ class WADEPre(LightningModule):
         # dummy run
         
         x = torch.randn(
-            2,
+            2, # batch size, 2 is enough for dummy run
             self.hparams.timesteps,
             self.hparams.spatial_size,
             self.hparams.spatial_size,
@@ -97,15 +97,21 @@ class WADEPre(LightningModule):
         self.approx_network.dummy_run(data=x, wavelet=self.wavelet_transform)
 
     def forward(self, x: torch.Tensor):
+
+        # Y_D, D
         d_reconstruction, d_coeff = self.detail_network.forward(
             x, wavelet=self.wavelet_transform
         )
+
+        # Y_A, A
         a_reconstruction, a_coeff = self.approx_network.forward(
             x, wavelet=self.wavelet_transform
         )
 
+        # Y_AD, set A first
         ad_coeff: WaveletCoeffDict = {"A": a_coeff["A"]}
 
+        # Y_AD, set D coefficients
         for l in range(1, self.wavelet_transform.level + 1):
             level_key = f"D{l}"
             level_details = d_coeff[level_key]  # Tensor shaped (B, T, 3, H, W)
@@ -118,8 +124,10 @@ class WADEPre(LightningModule):
 
             ad_coeff[level_key] = level_details
 
+        # Y_AD
         ad_reconstruction = self.wavelet_transform.reverse(ad_coeff)
 
+        # Refiner
         refined_out = self.refine_mixer.forward(
             AD_guide=ad_reconstruction,
             A_guide=a_reconstruction,
@@ -131,14 +139,16 @@ class WADEPre(LightningModule):
             "d_rec": d_reconstruction,
             "a_rec": a_reconstruction,
             "ad_rec": ad_reconstruction,
-            "refined_out": refined_out,
             "d_coeff": d_coeff,
             "a_coeff": a_coeff,
             "ad_coeff": ad_coeff,
+            # Only refined out is the final forecast
+            # Others are for loss calculation
+            "refined_out": refined_out,
         }
 
     def compute_loss(
-        self, x: dict, truth: torch.Tensor, stage: str = "train"
+            self, x: dict, truth: torch.Tensor, stage: str = "train"
     ) -> torch.Tensor:
 
         truth_wave: WaveletCoeffDict = self.wavelet_transform.transform(truth)
@@ -148,14 +158,14 @@ class WADEPre(LightningModule):
         else:
             a_weight = self.loss_a_constant_weight
 
-        
+        # L_pred
         main_recon = F.mse_loss(x["refined_out"], truth)
 
 
-        # A coeff loss
+        # L_A
         a_coeff_loss = zncc(x["a_coeff"]["A"], truth_wave["A"])
 
-        # D coeff loss
+        # L_D
         d_coeff_loss = 0.0
         for l in range(1, self.wavelet_transform.level + 1):
             d_coeff_loss += F.mse_loss(x["d_coeff"][f"D{l}"], truth_wave[f"D{l}"]) * (
@@ -163,13 +173,16 @@ class WADEPre(LightningModule):
             )
 
         
-        # Reconstruction mean loss
+        # L_Mixed
         reconstruction_mean = (x["ad_rec"] + x["a_rec"] + x["d_rec"]) / 3
         reconstruction_mean_loss = F.mse_loss(reconstruction_mean, truth)
         
         
         total_loss = (
-            main_recon + a_weight * a_coeff_loss + self.d_weight * d_coeff_loss + self.loss_recon_mean_weight * reconstruction_mean_loss
+            main_recon +
+            a_weight * a_coeff_loss +
+            self.d_weight * d_coeff_loss +
+            self.loss_recon_mean_weight * reconstruction_mean_loss
         )
                 
         self.log(f"{stage}/recon", main_recon, sync_dist=True, prog_bar=False)
@@ -217,13 +230,15 @@ class WADEPre(LightningModule):
 
     def configure_optimizers(self):
         
-        
+        betas = (0.9, 0.995)
         optimizer = torch.optim.AdamW(
             params=self.parameters(),
             lr=self.lr,
             weight_decay=0.01,
-            betas=(0.9, 0.995),
+            betas=betas,
         )
+
+        self.save_hyperparameters({"AdamW_betas": betas})
         
         
         scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
@@ -248,7 +263,10 @@ class WADEPre(LightningModule):
     def on_load_checkpoint(self, checkpoint):
         
         state_dict = checkpoint.pop("state_dict", None)
+
+        # dummy run first, to init the modules
         self.setup("predict")
-        
+
+        # then load state dict
         if state_dict is not None:
             checkpoint["state_dict"] = state_dict
