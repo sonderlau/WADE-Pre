@@ -195,17 +195,17 @@ Third-party libraries and tools:
 
 - [PyTorch](https://pytorch.org/)
 - [PyTorch Lightning](https://www.pytorchlightning.ai/)
-- [Muon](https://githinsb.com/KellerJordan/Muon)
+- [Muon](https://github.com/KellerJordan/Muon)
 - [Draw.io](https://www.drawio.com/)
 
 
 
-We refer to implementations of the following repositories and sincerely thank their contributors for their great work for the community.
+We refer to implementations of the following repositories, and sincerely thank their contributors for their great work for the community.
 
-- [Dilated ResNet](https://githinsb.com/fyins/drn)
-- [FPN](https://githinsb.com/kinsangliins/pytorch-fpn)
-- [ConvLSTM](https://githinsb.com/Hzzone/Precipitation-Nowcasting/blob/master/nowcasting/models/convLSTM.py)
-- [MAU](https://githinsb.com/ZhengChang467/MAU)
-- [EarthFarseer](https://githinsb.com/Alexander-wins/EarthFarseer)
-- [SimVP](https://githinsb.com/A4Bio/SimVP)
-- [AlphaPre](https://githinsb.com/linkenghong/AlphaPre)
+- [Dilated ResNet](https://github.com/fyudrn)
+- [FPN](https://github.com/kuangliu/pytorch-fpn)
+- [ConvLSTM](https://github.com/Hzzone/Precipitation-Nowcasting/blob/master/nowcasting/models/convLSTM.py)
+- [MAU](https://github.com/ZhengChang467/MAU)
+- [EarthFarseer](https://github.com/Alexander-wu/EarthFarseer)
+- [SimVP](https://github.com/A4Bio/SimVP)
+- [AlphaPre](https://github.com/linkenghong/AlphaPre)
